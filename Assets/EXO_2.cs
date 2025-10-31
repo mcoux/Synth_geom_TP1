@@ -95,7 +95,6 @@ namespace Synth_Geom
                 triangles.Add(i * 2 + 1);
                 triangles.Add(i * 2 + 3);
             }
-            Debug.Log(points.Count);
             mesh.vertices = points.ToArray();
             mesh.triangles = triangles.ToArray();
 
