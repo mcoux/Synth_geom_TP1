@@ -749,9 +749,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b231105d68324864ea7443fbc549d669, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EXO_3
-  rayon: 3
-  paralleles: 5
-  meridiens: 5
+  rayon: 1
+  paralleles: 2
+  meridiens: 3
   centre: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
