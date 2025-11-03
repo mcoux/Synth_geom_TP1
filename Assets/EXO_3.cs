@@ -1,6 +1,7 @@
 using System;
 using System.Drawing;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EXO_3 : MonoBehaviour
 {
@@ -39,17 +40,18 @@ public class EXO_3 : MonoBehaviour
         Mesh mesh = new Mesh();
         Vector3 currentPoint;
         float meridianAngle = 2*Mathf.PI/meridiens;
-        float parallAngle = Mathf.PI / (paralleles+1);
-
+        float parallAngle = Mathf.PI / paralleles;
+        float r,x,y,z;
         //Ajout des points
-        //int j = 1; j < meridiens; j++
-        //int i = 0; i <= paralleles; i++
         for (int i = 0; i <= paralleles; i++) 
         {
-
+            r = Mathf.Sin(parallAngle*i);
+            y = Mathf.Cos(parallAngle*i);
             for (int j = 0; j <= meridiens; j++)
             {
-                currentPoint = new Vector3(centre.x + Mathf.Cos(meridianAngle * i) * Mathf.Sin(parallAngle * j) , centre.y + Mathf.Cos(parallAngle * j), centre.z + Mathf.Sin(meridianAngle * i) * Mathf.Sin(parallAngle * j));
+                x = Mathf.Cos(meridianAngle * j)*r;
+                z = Mathf.Sin(meridianAngle*j)*r;
+                currentPoint = new Vector3(centre.x + x , centre.y +y, centre.z + z);
                 currentPoint *= rayon;
                 pointList.Add(currentPoint);
             }
@@ -63,20 +65,19 @@ public class EXO_3 : MonoBehaviour
         int a, b;
 
         //Ajout des faces des poles
-        for (int i = 0;i< paralleles; i++)
+        for (int i = 0;i < paralleles; i++)
         {
-            for(int j = 0;j<meridiens; j++)
+            for(int j = 0;j < meridiens; j++)
             {
                 a = (int)(i * (meridiens + 1)+j);
                 b = (int)(a + meridiens + 1);
+                triangles.Add(a+1);
+                triangles.Add(b);
                 triangles.Add(a);
-                triangles.Add(b);
-                triangles.Add(a+1);
 
-
-                triangles.Add(b);
+                triangles.Add(a + 1);
                 triangles.Add(b+1);
-                triangles.Add(a+1);
+                triangles.Add(b);
             }
          
 
@@ -90,13 +91,13 @@ public class EXO_3 : MonoBehaviour
 
         return mesh;
     }
+    //Fonction de débuggage, pour visualiser les points
+    //private void OnDrawGizmos()
+    //{
+    //    foreach (Vector3 point in pointList) {
+    //        Gizmos.DrawIcon(point,"P");
+    //    }
+    //    Gizmos.DrawWireSphere(centre, rayon);
 
-    private void OnDrawGizmos()
-    {
-        foreach (Vector3 point in pointList) {
-            Gizmos.DrawIcon(point,"P");
-        }
-        Gizmos.DrawWireSphere(centre, rayon);
-
-    }
+    //}
 }

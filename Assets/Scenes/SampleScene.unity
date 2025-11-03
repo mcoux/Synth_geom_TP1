@@ -750,7 +750,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EXO_3
   rayon: 1
-  paralleles: 2
+  paralleles: 20
   meridiens: 3
   centre: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
