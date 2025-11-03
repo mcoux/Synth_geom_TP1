@@ -34,7 +34,7 @@ public class EXO_3 : MonoBehaviour
         //System.Collections.Generic.List<Vector3> points = new();
         System.Collections.Generic.List<int> triangles = new();
 
-        pointList.Add(new Vector3(centre.x, centre.y + rayon, centre.z));
+        //pointList.Add(new Vector3(centre.x, centre.y + rayon, centre.z));
 
         Mesh mesh = new Mesh();
         Vector3 currentPoint;
@@ -42,10 +42,12 @@ public class EXO_3 : MonoBehaviour
         float parallAngle = Mathf.PI / (paralleles+1);
 
         //Ajout des points
-        for (int j = 1; j < meridiens; j++) 
+        //int j = 1; j < meridiens; j++
+        //int i = 0; i <= paralleles; i++
+        for (int i = 0; i <= paralleles; i++) 
         {
 
-            for (int i = 0; i <= paralleles; i++)
+            for (int j = 0; j <= meridiens; j++)
             {
                 currentPoint = new Vector3(centre.x + Mathf.Cos(meridianAngle * i) * Mathf.Sin(parallAngle * j) , centre.y + Mathf.Cos(parallAngle * j), centre.z + Mathf.Sin(meridianAngle * i) * Mathf.Sin(parallAngle * j));
                 currentPoint *= rayon;
@@ -53,34 +55,34 @@ public class EXO_3 : MonoBehaviour
             }
         }
 
-        pointList.Add(new Vector3(centre.x, centre.y - rayon, centre.z));
+        //pointList.Add(new Vector3(centre.x, centre.y - rayon, centre.z));
         mesh.vertices = pointList.ToArray();
 
-        triangles.Add(0);
-        triangles.Add(1);
-        triangles.Add((int)meridiens);
+     
+
+        int a, b;
 
         //Ajout des faces des poles
-        for (int i = 0;i<meridiens-1; i++)
+        for (int i = 0;i< paralleles; i++)
         {
-            triangles.Add(0);
-            triangles.Add(i+2);
-            triangles.Add(i + 1);
+            for(int j = 0;j<meridiens; j++)
+            {
+                a = (int)(i * (meridiens + 1)+j);
+                b = (int)(a + meridiens + 1);
+                triangles.Add(a);
+                triangles.Add(b);
+                triangles.Add(a+1);
 
 
-            triangles.Add(pointList.Count - 1);
-            triangles.Add(pointList.Count - 2 - i);
-            triangles.Add(pointList.Count - 1 - i);
+                triangles.Add(b);
+                triangles.Add(b+1);
+                triangles.Add(a+1);
+            }
+         
 
         }
 
-        triangles.Add(7);
-        triangles.Add(6);
-        triangles.Add(4);
-
-        triangles.Add(7);
-        triangles.Add(4);
-        triangles.Add(5);
+       
 
 
         mesh.triangles = triangles.ToArray();
